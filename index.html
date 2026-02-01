@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Task Dashboard — Ali Mansouri</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+
+<body>
+
+<header class="header">
+  <h1>Remote Team Dashboard</h1>
+  <p>Track tasks and productivity in real time</p>
+</header>
+
+<main class="container">
+
+  <!-- Stats -->
+  <section class="stats">
+    <div class="stat-card">
+      <h3>Total Tasks</h3>
+      <span id="totalTasks">0</span>
+    </div>
+    <div class="stat-card">
+      <h3>Completed</h3>
+      <span id="completedTasks">0</span>
+    </div>
+    <div class="stat-card">
+      <h3>Pending</h3>
+      <span id="pendingTasks">0</span>
+    </div>
+  </section>
+
+  <!-- Controls -->
+  <section class="controls">
+    <input type="text" id="taskInput" placeholder="Enter a new task..." />
+    <button id="addTaskBtn">Add Task</button>
+
+    <div class="filters">
+      <button data-filter="all" class="active">All</button>
+      <button data-filter="completed">Completed</button>
+      <button data-filter="pending">Pending</button>
+    </div>
+  </section>
+
+  <!-- Task List -->
+  <ul id="taskList" class="task-list"></ul>
+
+</main>
+
+<footer class="footer">
+  <p>Built by Ali Mansouri — Interactive Frontend Project</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
