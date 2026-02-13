@@ -2,57 +2,51 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Task Dashboard — Ali Mansouri</title>
-  <link rel="stylesheet" href="style.css"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Remote Team Task Dashboard</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
-
 <body>
 
-<header class="header">
-  <h1>Remote Team Dashboard</h1>
-  <p>Track tasks and productivity in real time</p>
-</header>
+  <header class="header">
+    <h1>Remote Team Task Dashboard</h1>
+    <p>Manage your daily tasks efficiently</p>
+  </header>
 
-<main class="container">
+  <main class="container">
 
-  <!-- Stats -->
-  <section class="stats">
-    <div class="stat-card">
-      <h3>Total Tasks</h3>
-      <span id="totalTasks">0</span>
-    </div>
-    <div class="stat-card">
-      <h3>Completed</h3>
-      <span id="completedTasks">0</span>
-    </div>
-    <div class="stat-card">
-      <h3>Pending</h3>
-      <span id="pendingTasks">0</span>
-    </div>
-  </section>
+    <section class="task-input-section">
+      <input
+        type="text"
+        id="task-input"
+        placeholder="Enter a new task..."
+      />
+      <button id="add-task-btn">Add Task</button>
+    </section>
 
-  <!-- Controls -->
-  <section class="controls">
-    <input type="text" id="taskInput" placeholder="Enter a new task..." />
-    <button id="addTaskBtn">Add Task</button>
+    <section class="task-list-section">
+      <ul id="task-list"></ul>
+    </section>
 
-    <div class="filters">
-      <button data-filter="all" class="active">All</button>
-      <button data-filter="completed">Completed</button>
-      <button data-filter="pending">Pending</button>
-    </div>
-  </section>
+    <section class="stats-section">
+      <div class="stat-card">
+        <h3>Total</h3>
+        <span id="total-count">0</span>
+      </div>
 
-  <!-- Task List -->
-  <ul id="taskList" class="task-list"></ul>
+      <div class="stat-card">
+        <h3>Completed</h3>
+        <span id="completed-count">0</span>
+      </div>
 
-</main>
+      <div class="stat-card">
+        <h3>Active</h3>
+        <span id="active-count">0</span>
+      </div>
+    </section>
 
-<footer class="footer">
-  <p>Built by Ali Mansouri — Interactive Frontend Project</p>
-</footer>
+  </main>
 
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

@@ -1,69 +1,78 @@
-const taskInput = document.getElementById("taskInput");
-const addTaskBtn = document.getElementById("addTaskBtn");
-const taskList = document.getElementById("taskList");
+console.log("JS Loaded");
 
-const totalTasks = document.getElementById("totalTasks");
-const completedTasks = document.getElementById("completedTasks");
-const pendingTasks = document.getElementById("pendingTasks");
+let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
-const filterButtons = document.querySelectorAll(".filters button");
+const taskInput = document.getElementById("task-input");
+const addTaskBtn = document.getElementById("add-task-btn");
+const taskList = document.getElementById("task-list");
 
-let tasks = [];
+const totalCount = document.getElementById("total-count");
+const completedCount = document.getElementById("completed-count");
+const activeCount = document.getElementById("active-count");
 
-function updateStats() {
-  totalTasks.textContent = tasks.length;
-  const completed = tasks.filter(t => t.completed).length;
-  completedTasks.textContent = completed;
-  pendingTasks.textContent = tasks.length - completed;
+function saveTasks() {
+  localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
-function renderTasks(filter = "all") {
+function updateStats() {
+  totalCount.textContent = tasks.length;
+  completedCount.textContent = tasks.filter(t => t.completed).length;
+  activeCount.textContent = tasks.filter(t => !t.completed).length;
+}
+
+function renderTasks() {
   taskList.innerHTML = "";
 
-  let filteredTasks = tasks;
-
-  if (filter === "completed") {
-    filteredTasks = tasks.filter(t => t.completed);
-  } else if (filter === "pending") {
-    filteredTasks = tasks.filter(t => !t.completed);
+  if (tasks.length === 0) {
+    taskList.innerHTML = "<li class='empty'>No tasks yet 👋</li>";
+    updateStats();
+    return;
   }
 
-  filteredTasks.forEach((task, index) => {
+  tasks.forEach((task, index) => {
     const li = document.createElement("li");
     li.className = task.completed ? "completed" : "";
 
     li.innerHTML = `
       <span>${task.text}</span>
-      <button>✓</button>
+      <div class="actions">
+        <button class="toggle-btn">✔</button>
+        <button class="delete-btn">✖</button>
+      </div>
     `;
 
-    li.querySelector("button").addEventListener("click", () => {
+    li.querySelector(".toggle-btn").addEventListener("click", () => {
       tasks[index].completed = !tasks[index].completed;
-      renderTasks(filter);
-      updateStats();
+      saveTasks();
+      renderTasks();
+    });
+
+    li.querySelector(".delete-btn").addEventListener("click", () => {
+      tasks.splice(index, 1);
+      saveTasks();
+      renderTasks();
     });
 
     taskList.appendChild(li);
   });
+
+  updateStats();
 }
 
 addTaskBtn.addEventListener("click", () => {
   const text = taskInput.value.trim();
   if (!text) return;
 
-  tasks.push({ text, completed: false });
+  tasks.push({ text: text, completed: false });
   taskInput.value = "";
-
+  saveTasks();
   renderTasks();
-  updateStats();
 });
 
-filterButtons.forEach(btn => {
-  btn.addEventListener("click", () => {
-    filterButtons.forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-
-    const filter = btn.getAttribute("data-filter");
-    renderTasks(filter);
-  });
+taskInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    addTaskBtn.click();
+  }
 });
+
+renderTasks();
